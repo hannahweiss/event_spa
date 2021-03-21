@@ -2,9 +2,9 @@ use Mix.Config
 
 # Configure your database
 config :event_app, EventApp.Repo,
-  username: "postgres",
-  password: "postgres",
-  database: "event_app_dev",
+  username: "event_app",
+  password: "event_app",
+  database: "event_app_spa",
   hostname: "localhost",
   show_sensitive_data_on_connection_error: true,
   pool_size: 10
