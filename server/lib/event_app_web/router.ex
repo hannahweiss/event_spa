@@ -16,6 +16,7 @@ defmodule EventAppWeb.Router do
     resources "/events", EventController, except: [:new, :edit]
     resources "/comments", CommentController, except: [:new, :edit]
     resources "/invitations", InvitationController, except: [:new, :edit]
+    resources "/session", SessionController, only: [:create]
   end
   # Other scopes may use custom stacks.
   # scope "/api", EventAppWeb do

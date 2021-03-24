@@ -21,6 +21,14 @@ defmodule EventApp.Users do
     Repo.all(User)
   end
 
+  def authenticate(name, pass) do
+    user = Repo.get_by(User, name: name)
+    case Argon2.check_pass(user, pass) do
+      {:ok, user} -> user
+      _ -> nil
+    end
+  end
+
   @doc """
   Gets a single user.
 
@@ -50,6 +58,7 @@ defmodule EventApp.Users do
 
   """
   def create_user(attrs \\ %{}) do
+    IO.inspect(attrs)
     %User{}
     |> User.changeset(attrs)
     |> Repo.insert()

@@ -8,11 +8,25 @@ import { create_user, fetch_users } from "../api";
 
 function UsersNew() {
   let history = useHistory();
-  const [user, setUser] = useState({ name: "", email: ""});
+  const [user, setUser] = useState({ name: "", email: "", pass1: "", pass2: ""});
+
+  function check_pass(p1, p2) {
+    if (p1 !== p2) {
+      return "Passwords don't match.";
+    }
+
+    if (p1.length < 8) {
+      return "Password too short.";
+    }
+
+    return "";
+  }
 
   function update(field, ev) {
     let u1 = Object.assign({}, user);
     u1[field] = ev.target.value;
+    u1.password = u1.pass1;
+    u1.pass_msg = check_pass(u1.pass1, u1.pass2);
     setUser(u1);
   }
 
@@ -20,7 +34,7 @@ function UsersNew() {
     ev.preventDefault();
     console.log(user);
 
-    let data = pick(user, ["name", "email"]);
+    let data = pick(user, ["name", "email", "password"]);
     create_user(data).then(() => {
       fetch_users();
       history.push("/users");
@@ -47,6 +61,19 @@ function UsersNew() {
               onChange={(ev) => update("email", ev)}
               value={user.email || ""}
             />
+          </Form.Group>
+          <Form.Group>
+            <Form.Label>Password</Form.Label>
+            <Form.Control type="password"
+                          onChange={(ev) => update("pass1", ev)}
+                          value={user.pass1 || ""} />
+            <p>{user.pass_msg}</p>
+          </Form.Group>
+          <Form.Group>
+            <Form.Label>Confirm Password</Form.Label>
+            <Form.Control type="password"
+                          onChange={(ev) => update("pass2", ev)}
+                          value={user.pass2 || ""} />
           </Form.Group>
           <Button
             variant="primary"

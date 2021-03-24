@@ -44,6 +44,25 @@ export function create_event(event) {
   return api_post("/events", { event });
 }
 
+export function api_login(name, password) {
+  api_post("/session", { name, password }).then((data) => {
+    console.log("login resp", data);
+    if (data.session) {
+      let action = {
+        type: "session/set",
+        data: data.session,
+      };
+      store.dispatch(action);
+    } else if (data.error) {
+      let action = {
+        type: "error/set",
+        data: data.error,
+      };
+      store.dispatch(action);
+    }
+  });
+}
+
 export function load_defaults() {
   fetch_users();
   fetch_events();
