@@ -9,3 +9,9 @@
 #
 # We recommend using the bang functions (`insert!`, `update!`
 # and so on) as they will fail if something goes wrong.
+
+alias EventApp.Repo
+alias EventApp.Users.User
+
+alice = Repo.insert!(%User{name: "alice", email: "alice@email"})
+bob = Repo.insert!(%User{name: "bob", email: "bob@email"})
