@@ -1,12 +1,14 @@
-import { Row, Col } from 'react-bootstrap';
-import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { Row, Col } from "react-bootstrap";
+import { connect } from "react-redux";
+import { Link } from "react-router-dom";
 
-function UsersList({users}) {
+function UsersList({ users }) {
   let rows = users.map((user) => (
     <tr key={user.id}>
       <td>{user.name}</td>
-      <td>[Edit]</td>
+      <td>
+        [Edit] <Link to={"/users/view/" + user.id}>View</Link>
+      </td>
     </tr>
   ));
 
@@ -16,9 +18,7 @@ function UsersList({users}) {
         <Col>
           <h2>List Users</h2>
           <p>
-            <Link to="/users/new">
-              New User
-            </Link>
+            <Link to="/users/new">New User</Link>
           </p>
           <table className="table table-striped">
             <thead>
@@ -27,18 +27,15 @@ function UsersList({users}) {
                 <th>Actions</th>
               </tr>
             </thead>
-            <tbody>
-              { rows }
-            </tbody>
+            <tbody>{rows}</tbody>
           </table>
         </Col>
       </Row>
     </div>
   );
-
 }
 
-function state2props({users}) {
+function state2props({ users }) {
   return { users };
 }
 

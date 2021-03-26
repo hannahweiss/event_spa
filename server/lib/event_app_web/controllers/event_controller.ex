@@ -12,6 +12,9 @@ defmodule EventAppWeb.EventController do
   end
 
   def create(conn, %{"event" => event_params}) do
+    IO.inspect("CONNECTION")
+    IO.inspect(conn)
+
     with {:ok, %Event{} = event} <- Events.create_event(event_params) do
       conn
       |> put_status(:created)

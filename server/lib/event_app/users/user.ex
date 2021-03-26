@@ -16,7 +16,6 @@ defmodule EventApp.Users.User do
     |> cast(attrs, [:name, :email])
     |> add_password_hash(attrs["password"])
     |> validate_required([:name, :email, :password_hash])
-    |> IO.inspect()
   end
 
   def add_password_hash(cset, nil) do

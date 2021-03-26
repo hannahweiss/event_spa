@@ -27,6 +27,14 @@ export function fetch_users() {
   );
 }
 
+export function get_user_by_id(user_id){
+    api_get("/users/" + user_id).then((data) =>
+    store.dispatch({
+        type: "user/view",
+        data: data,
+    }))
+}
+
 export function create_user(user) {
   return api_post("/users", { user });
 }

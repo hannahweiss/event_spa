@@ -8,7 +8,7 @@ import { create_event, fetch_events } from '../api';
 
 function EventsNew() {
   let history = useHistory();
-  const [event, setEvent] = useState({name: "", description: ""});
+  const [event, setEvent] = useState({name: "", description: "", date: ""});
 
   function update(field, ev) {
     let e1 = Object.assign({}, event);
@@ -20,7 +20,7 @@ function EventsNew() {
     ev.preventDefault();
     console.log(event);
 
-    let data = pick(event, ['name', 'description']);
+    let data = pick(event, ['name', 'description', 'date']);
     create_event(data).then(() => {
       fetch_events();
       history.push("/");
@@ -43,6 +43,12 @@ function EventsNew() {
             <Form.Control type="description"
                           onChange={(ev) => update("description", ev)}
                           value={event.description || ""} />
+          </Form.Group>
+          <Form.Group>
+            <Form.Label>Date</Form.Label>
+            <Form.Control id="date-picker"       type="date"
+                          onChange={(ev) => update("date", ev)}
+                          value={event.date || ""} />
           </Form.Group>
           <Button variant="primary"
                   type="submit">

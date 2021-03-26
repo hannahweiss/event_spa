@@ -1,8 +1,19 @@
 defmodule EventAppWeb.Router do
   use EventAppWeb, :router
 
+  pipeline :browser do
+    plug :accepts, ["html"]
+    plug :fetch_session
+    plug :fetch_flash
+    plug :protect_from_forgery
+    plug :put_secure_browser_headers
+    plug EventAppWeb.Plugs.FetchSession
+  end
+
   pipeline :api do
     plug :accepts, ["json"]
+    plug :fetch_session
+    plug EventAppWeb.Plugs.FetchSession
   end
 
   scope "/", EventAppWeb do
@@ -16,7 +27,7 @@ defmodule EventAppWeb.Router do
     resources "/events", EventController, except: [:new, :edit]
     resources "/comments", CommentController, except: [:new, :edit]
     resources "/invitations", InvitationController, except: [:new, :edit]
-    resources "/session", SessionController, only: [:create]
+    resources "/session", SessionController, only: [:create, :delete]
   end
   # Other scopes may use custom stacks.
   # scope "/api", EventAppWeb do

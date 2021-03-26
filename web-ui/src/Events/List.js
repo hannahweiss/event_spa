@@ -6,7 +6,7 @@ function EventsList({ events }) {
   let rows = events.map((event) => (
     <tr key={event.id}>
       <td>{event.name}</td>
-      <td>[Edit]</td>
+      <td>[Edit] <Link to="/events/new">View Event</Link></td>
     </tr>
   ));
 

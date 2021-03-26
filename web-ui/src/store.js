@@ -9,6 +9,15 @@ function users(state = [], action) {
   }
 }
 
+function user(state = [], action){
+    switch(action.type) {
+        case "user/view":
+            return action.data;
+        default:
+            return state;
+    }
+}
+
 function events(state = [], action) {
   switch (action.type) {
     case "events/set":
@@ -78,6 +87,7 @@ function root_reducer(state, action) {
     events,
     error,
     session,
+    user,
   });
   return reducer(state, action);
 }
