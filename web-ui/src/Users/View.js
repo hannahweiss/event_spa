@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 
-function UserView({ match }) {
+function UserView() {
   const [user, setUser] = useState({});
 
   let { id } = useParams();
